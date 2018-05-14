@@ -1,4 +1,5 @@
 import Vapor
+import Leaf
 
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
@@ -16,4 +17,13 @@ public func routes(_ router: Router) throws {
                 return acronym.save(on: req)
         }
     }
+    
+    router.get("view") { req -> Future<View> in
+        return try req.view().render("welcome")
+    }
+    
+    router.get("weather") { req -> Future<View> in
+        return try req.view().render("weather")
+    }
+
 }

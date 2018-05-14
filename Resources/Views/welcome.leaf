@@ -1,0 +1,14 @@
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Leaf</title>
+        <script type="text/javascript" src="/scripts/test.js"></script>
+        <script>
+            alertTest();
+            </script>
+    </head>
+    <body> <h1> Welcome to my first leaf template! </h1> </body>
+</html>
