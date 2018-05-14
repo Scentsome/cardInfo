@@ -4,6 +4,25 @@ import Fluent
 
 struct AcronymsController: RouteCollection {
     func boot(router: Router) throws {
+        let acronymsRoutes = router.grouped("api", "acronyms")
+        
+        acronymsRoutes.get(use:getAllHandler )
+        // 1
+        acronymsRoutes.post(Acronym.self, use: createHandler)
+        // 2
+        acronymsRoutes.get(Acronym.parameter, use: getHandler)
+        // 3
+        acronymsRoutes.put(Acronym.parameter, use: updateHandler)
+        // 4
+        acronymsRoutes.delete(Acronym.parameter, use: deleteHandler)
+        // 5
+        acronymsRoutes.get("search", use: searchHandler)
+        // 6
+        acronymsRoutes.get("first", use: getFirstHandler)
+        // 7
+        acronymsRoutes.get("sorted", use: sortedHandler)
+        
+        acronymsRoutes.get(Acronym.parameter, "user",use: getUserHandler)
         
     }
 //    func createHandler(_ req: Request) throws -> Future<Acronym> {
@@ -38,6 +57,7 @@ struct AcronymsController: RouteCollection {
                             acronym, updatedAcronym in
                             acronym.short = updatedAcronym.short
                             acronym.long = updatedAcronym.long
+                            acronym.userID = updatedAcronym.userID
                             return acronym.save(on: req)
         }
     }
@@ -78,6 +98,16 @@ struct AcronymsController: RouteCollection {
             
         }
     }
+    
+    func getUserHandler(_ req: Request) throws -> Future<User> {
+        // 2
+        return try req.parameters.next(Acronym.self)
+            .flatMap(to: User.self) { acronym in
+                // 3
+                try acronym.user.get(on: req)
+        }
+    }
+    
     
     
 }

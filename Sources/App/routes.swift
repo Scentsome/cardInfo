@@ -31,26 +31,14 @@ public func routes(_ router: Router) throws {
     try router.register(collection: acronymsController)
     
     
-    let acronymsRoutes = router.grouped("api", "acronyms")
-    
-    
-    acronymsRoutes.get(use:acronymsController.getAllHandler )
-    
-    
-    // 1
-    acronymsRoutes.post(Acronym.self, use: acronymsController.createHandler)
+   
+    let usersController = UsersController()
     // 2
-    acronymsRoutes.get(Acronym.parameter, use: acronymsController.getHandler)
-    // 3
-    acronymsRoutes.put(Acronym.parameter, use: acronymsController.updateHandler)
-    // 4
-    acronymsRoutes.delete(Acronym.parameter, use: acronymsController.deleteHandler)
-    // 5
-    acronymsRoutes.get("search", use: acronymsController.searchHandler)
-    // 6
-    acronymsRoutes.get("first", use: acronymsController.getFirstHandler)
-    // 7
-    acronymsRoutes.get("sorted", use: acronymsController.sortedHandler)
+    try router.register(collection: usersController)
+    
+    
+    
+    
     
     
 //    router.get("api", "acronyms", use: acronymsController.getAllHandler)
