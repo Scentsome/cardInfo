@@ -37,7 +37,12 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
 
     /// Configure migrations
     var migrations = MigrationConfig()
+    migrations.add(model: Bank.self, database: .psql)
+    migrations.add(model: Card.self, database: .psql)
+    migrations.add(model: Store.self, database: .psql)
     migrations.add(model: Acronym.self, database: .psql)
+    migrations.add(model: Discount.self, database: .psql)
+
     
     migrations.add(model: User.self, database: .psql)
     
@@ -49,4 +54,8 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     try services.register(leafProvider)
     config.prefer(LeafRenderer.self, for: ViewRenderer.self)
     
+    
+    var commandConfig = CommandConfig.default()
+    commandConfig.use(RevertCommand.self, as: "revert")
+    services.register(commandConfig)
 }

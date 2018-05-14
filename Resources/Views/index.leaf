@@ -1,0 +1,5 @@
+
+<form action="choosecard.leaf" method="post">
+　<input type="text" name="UserName"><br>
+　<input type="submit" value="Search">
+</form>
