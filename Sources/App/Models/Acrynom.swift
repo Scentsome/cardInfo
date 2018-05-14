@@ -16,3 +16,4 @@ extension Acronym: PostgreSQLModel {}
 extension Acronym: Migration {}
 extension Acronym: Content {}
 
+extension Acronym: Parameter {}
